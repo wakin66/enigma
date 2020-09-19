@@ -101,27 +101,4 @@ describe Rotor do
         end
     end
 
-    describe "#set_position" do
-        context "is given an integer as an argument" do
-            it "doesn't raise an error when the argument is 1-26" do
-                expect{rotor.set_position(5)}.to_not raise_error
-                expect{rotor.set_position(10)}.to_not raise_error
-            end
-
-            it "raises an error when the argument is < 1" do
-                expect{rotor.set_position(0)}.to raise_error(ArgumentError,"Invalid rotor position")
-            end
-
-            it "raises an error when the argument is > 26" do
-                expect{rotor.set_position(30)}.to raise_error(ArgumentError,"Invalid rotor position")
-            end
-        end
-
-        context "is given an argument that is NOT an Integer" do
-            it "raises an error" do
-                expect{rotor.set_position("ten")}.to raise_error(ArgumentError,"Invalid rotor position")
-            end
-        end
-    end
-
 end
