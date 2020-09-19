@@ -39,18 +39,55 @@ describe Rotor do
                 expect {rotor.get_value("1")}.to raise_error(ArgumentError,"Invalid character.")
             end
 
-            it "returns 'E' when given the string 'A'" do
-                expect(rotor.get_value("A")).to eq("E")
+            context "when at the starting position" do
+                it "returns 'E' when given the string 'A'" do
+                    expect(rotor.get_value("A")).to eq("E")
+                end
+
+                it "returns 'C' when given the string 'Y'" do
+                    expect(rotor.get_value("Y")).to eq("C")
+                end
             end
 
-            it "returns 'C' when given the string 'Y'" do
-                expect(rotor.get_value("Y")).to eq("C")
+            context "when rotated once" do
+                it "returns 'J' when given the string 'A'" do
+                    rotor.get_value('a')
+                    expect(rotor.get_value("A")).to eq("J")
+                end
+
+                it "returns 'I' when given the string 'Y'" do
+                    rotor.get_value('a')
+                    expect(rotor.get_value("Y")).to eq("I")
+                end
             end
         end
 
         context "is given an argument that is NOT a string" do
             it "raises an error" do
                 expect {rotor.get_value(1)}.to raise_error(TypeError,"Character must be a letter.")
+            end
+        end
+    end
+
+    describe "#set_position" do
+        context "is given an integer as an argument" do
+            it "doesn't raise an error when the argument is 1-26" do
+                expect{rotor.set_position(5)}.to_not raise_error
+                expect{rotor.set_position(10)}.to_not raise_error
+            end
+
+            it "raises an error when the argument is < 1" do
+                expect{rotor.set_position(0)}.to raise_error(ArgumentError,"Invalid rotor position")
+            end
+
+            it "raises an error when the argument is > 26" do
+                expect{rotor.set_position(30)}.to raise_error(ArgumentError,"Invalid rotor position")
+            end
+        end
+
+        context "is given an argument that is NOT an Integer" do
+            it "raises an error" do
+                expect{rotor.set_position("ten")}.to raise_error(ArgumentError,"Invalid rotor position")
             end
         end
     end
