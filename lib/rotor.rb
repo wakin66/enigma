@@ -1,5 +1,4 @@
 class Rotor
-    #attr_reader :setting
 
     #These connections were gathered from https://bit.ly/33EWSk6
     WIRING_CONNECTIONS = [
@@ -35,7 +34,13 @@ class Rotor
 
     def set_position(pos)
         raise(ArgumentError,"Invalid rotor position") unless (1..26).include?(pos)
+        @position = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         (pos-1).times {rotate}
+        position
+    end
+
+    def position
+        return ALPHA.index(@position[0])+1
     end
 
     private
