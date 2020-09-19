@@ -31,13 +31,6 @@ class Rotor
         return new_char
     end
 
-    def set_position(pos)
-        raise(ArgumentError,"Invalid rotor position") unless (1..26).include?(pos)
-        @position = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        (pos-1).times {rotate_forward}
-        position
-    end
-
     def position
         return ALPHA.index(@position[0])+1
     end
