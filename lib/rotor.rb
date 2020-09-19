@@ -17,8 +17,7 @@ class Rotor
     end
 
     def get_value(char)
-        temp_char = char.upcase
-        new_char = @setting.slice("ABCDEFGHIJKLMNOPQRSTUVWXYZ".index(temp_char))
+        new_char = @setting.slice("ABCDEFGHIJKLMNOPQRSTUVWXYZ".index(char.upcase))
         rotate
         return new_char
     end
