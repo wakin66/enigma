@@ -15,7 +15,7 @@ class Reflector
     end
 
     def get_value(char)
-        raise(TypeError,"Reflector ID must be a letter.") unless char.is_a? String
+        raise(TypeError,"Character must be a letter.") unless char.is_a? String
         raise(ArgumentError,"Invalid character.") unless char.length == 1
         raise(ArgumentError,"Invalid character.") unless "ABCDEFGHIJKLMNOPQRSTUVWXYZ".include?(char.upcase)
         @setting.slice("ABCDEFGHIJKLMNOPQRSTUVWXYZ".index(char.upcase))
