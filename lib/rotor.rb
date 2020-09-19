@@ -10,6 +10,8 @@ class Rotor
         :VZBRGITYUPSDNHLXAWMJQOFECK
     ]
 
+    ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
     def initialize(id,pos="A")
         raise(ArgumentError,"Invalid rotor number.") unless [1,2,3,4,5].include?(id)
         @id = id
@@ -17,7 +19,10 @@ class Rotor
     end
 
     def get_value(char)
-        new_char = @setting.slice("ABCDEFGHIJKLMNOPQRSTUVWXYZ".index(char.upcase))
+        raise(TypeError,"Character must be a letter.") unless char.is_a? String
+        raise(ArgumentError,"Invalid character.") unless char.length == 1
+        raise(ArgumentError,"Invalid character.") unless ALPHA.include?(char.upcase)
+        new_char = @setting.slice(ALPHA.index(char.upcase))
         rotate
         return new_char
     end
@@ -25,7 +30,7 @@ class Rotor
     def set_position(char)
         @setting = ROTOR_CONNECTIONS[@id-1]
         char = char.upcase
-        ("ABCDEFGHIJKLMNOPQRSTUVWXYZ".index(char)).times {rotate}
+        (ALPHA.index(char)).times {rotate}
     end
 
     private
