@@ -59,12 +59,12 @@ describe Rotor do
 
             context "when rotated once" do
                 it "returns 'J' when given the string 'A'" do
-                    rotor.get_value('a')
+                    rotor.rotate_forward
                     expect(rotor.get_value("A")).to eq("J")
                 end
 
                 it "returns 'I' when given the string 'Y'" do
-                    rotor.get_value('a')
+                    rotor.rotate_forward
                     expect(rotor.get_value("Y")).to eq("I")
                 end
             end
