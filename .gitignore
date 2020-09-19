@@ -3,3 +3,6 @@
 
 #ByeBug Log Files
 *.byebug_history
+
+#Gemfile.lock
+Gemfile.lock
