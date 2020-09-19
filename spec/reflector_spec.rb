@@ -51,7 +51,7 @@ describe Reflector do
 
         context "is given an argument that is NOT a string" do
             it "raises an error" do
-                expect {reflector.get_value(1)}.to raise_error(TypeError,"Reflector ID must be a letter.")
+                expect {reflector.get_value(1)}.to raise_error(TypeError,"Character must be a letter.")
             end
         end
     end
