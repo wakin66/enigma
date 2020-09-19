@@ -16,7 +16,7 @@ class Rotor
         @id = id
         @position = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         @setting = WIRING_CONNECTIONS[@id-1]
-        got_to_pos(pos)
+        go_to_pos(pos)
     end
 
     def get_value(char)
@@ -47,7 +47,8 @@ class Rotor
 
     private
 
-    def got_to_pos(new_pos)
+    def go_to_pos(new_pos)
+        raise(ArgumentError,"Invalid rotor position") unless (1..26).include?(new_pos)
         if position == new_pos
             return position
         elsif position < new_pos
