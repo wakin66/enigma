@@ -33,11 +33,11 @@ describe Reflector do
             end
 
             it "raises an error when length != 1" do
-                expect {reflector.get_value("ab")}.to raise_error(ArgumentError,"Invalid reflector ID.")
+                expect {reflector.get_value("ab")}.to raise_error(ArgumentError,"Invalid character.")
             end
 
             it "raises an error when the string is not a letter" do
-                expect {reflector.get_value("1")}.to raise_error(ArgumentError,"Invalid reflector ID.")
+                expect {reflector.get_value("1")}.to raise_error(ArgumentError,"Invalid character.")
             end
 
             it "returns 'Y' when given the string 'A'" do
