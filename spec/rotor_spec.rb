@@ -20,6 +20,10 @@ describe Rotor do
             it "sets @position to 1 if no position is specified" do
                 expect(Rotor.new(1).position).to eq(1)
             end
+
+            it "sets @position to 5 if a position argument of 5 is given" do
+                expect(Rotor.new(1,5).position).to eq(5)
+            end
         end
 
         context "is given an argument that is NOT an integer" do
