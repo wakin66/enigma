@@ -77,6 +77,30 @@ describe Rotor do
         end
     end
 
+    describe "#position" do
+        it "returns an Integer"
+    end
+
+    describe "#rotate_forward" do
+        context "when the current position is < 26" do
+            it "increases the position by 1"
+        end
+
+        context "when the current position is == 26" do
+            it "changes the position to 1"
+        end
+    end
+
+    describe "#rotate_backward" do
+        context "when the current position is > 1" do
+            it "decreases the position by 1"
+        end
+
+        context "when the current position is == 1" do
+            it "changes the position to 26"
+        end
+    end
+
     describe "#set_position" do
         context "is given an integer as an argument" do
             it "doesn't raise an error when the argument is 1-26" do
