@@ -16,7 +16,7 @@ class Rotor
         @id = id
         @position = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         @setting = WIRING_CONNECTIONS[@id-1]
-        set_position(pos)
+        got_to_pos(pos)
     end
 
     def get_value(char)
@@ -28,14 +28,13 @@ class Rotor
         output_setting = @setting.slice(ALPHA.index(input_setting))
         output_pos = @position.index(output_setting)
         new_char = ALPHA[output_pos]
-        rotate
         return new_char
     end
 
     def set_position(pos)
         raise(ArgumentError,"Invalid rotor position") unless (1..26).include?(pos)
         @position = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        (pos-1).times {rotate}
+        (pos-1).times {rotate_forward}
         position
     end
 
@@ -43,10 +42,33 @@ class Rotor
         return ALPHA.index(@position[0])+1
     end
 
+    def rotate_forward
+        @position = @position[1..-1]+@position[0]
+        return position
+    end
+
+    def rotate_backward
+        @position = @position[-1]+@position[0...-1]
+        return position
+    end
+
     private
 
-    def rotate
-        @position = @position[1..-1]+@position[0]
+    def got_to_pos(new_pos)
+        if position == new_pos
+            return position
+        elsif position < new_pos
+            moves_forward = new_pos - position
+            moves_backward = position + 26 - new_pos
+        else
+            moves_forward = position - new_pos
+            moves_backward = new_pos + 26 - position
+        end
+        if moves_forward < moves_backward
+            moves_forward.times {rotate_forward}
+        else
+            moves_backward.times {rotate_backward}
+        end
     end
 
 end
