@@ -16,6 +16,10 @@ describe Rotor do
             it "raises an error when given the wrong arguments" do
                 expect {Rotor.new(6)}.to raise_error(ArgumentError,"Invalid rotor number.")
             end
+
+            it "sets @position to 1 if no position is specified" do
+                expect(Rotor.new(1).position).to eq(1)
+            end
         end
 
         context "is given an argument that is NOT an integer" do
