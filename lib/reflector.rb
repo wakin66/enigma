@@ -10,7 +10,7 @@ class Reflector
         raise(TypeError,"Reflector ID must be a letter.") unless id.is_a? String
         raise(ArgumentError,"Invalid reflector ID.") unless id.length == 1
         raise(ArgumentError,"Invalid reflector ID.") unless "BC".include?(id.upcase)
-        @id = id
+        @id = id.upcase
         @setting = REFLECTOR_CONNECTIONS["BC".index(id.upcase)]
     end
 
