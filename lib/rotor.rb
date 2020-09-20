@@ -2,11 +2,11 @@ class Rotor
 
     #These connections were gathered from https://bit.ly/33EWSk6
     WIRING_CONNECTIONS = [
-        :EKMFLGDQVZNTOWYHXUSPAIBRCJ,
-        :AJDKSIRUXBLHWTMCQGZNPYFVOE,
-        :BDFHJLCPRTXVZNYEIWGAKMUSQO,
-        :ESOVPZJAYQUIRHXLNFTGKDCMWB,
-        :VZBRGITYUPSDNHLXAWMJQOFECK
+        "EKMFLGDQVZNTOWYHXUSPAIBRCJ",
+        "AJDKSIRUXBLHWTMCQGZNPYFVOE",
+        "BDFHJLCPRTXVZNYEIWGAKMUSQO",
+        "ESOVPZJAYQUIRHXLNFTGKDCMWB",
+        "VZBRGITYUPSDNHLXAWMJQOFECK"
     ]
 
     ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -15,17 +15,30 @@ class Rotor
         raise(ArgumentError,"Invalid rotor number.") unless [1,2,3,4,5].include?(id)
         @id = id
         @position = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        @setting = WIRING_CONNECTIONS[@id-1]
+        @setting = Array.new
+        (0..25).each {|idx| @setting << [ALPHA[idx], WIRING_CONNECTIONS[@id-1][idx]]}
         go_to_pos(pos)
     end
 
-    def get_value(char)
+    def get_value_from_right(char)
         raise(TypeError,"Character must be a letter.") unless char.is_a? String
         raise(ArgumentError,"Invalid character.") unless char.length == 1
         raise(ArgumentError,"Invalid character.") unless ALPHA.include?(char.upcase)
         input_pos = ALPHA.index(char.upcase)
         input_setting = @position[input_pos]
-        output_setting = @setting.slice(ALPHA.index(input_setting))
+        output_setting = @setting[ALPHA.index(input_setting)][-1]
+        output_pos = @position.index(output_setting)
+        new_char = ALPHA[output_pos]
+        return new_char
+    end
+
+    def get_value_from_left(char)
+        raise(TypeError,"Character must be a letter.") unless char.is_a? String
+        raise(ArgumentError,"Invalid character.") unless char.length == 1
+        raise(ArgumentError,"Invalid character.") unless ALPHA.include?(char.upcase)
+        input_pos = ALPHA.index(char.upcase)
+        input_setting = @position[input_pos]
+        output_setting = @setting[WIRING_CONNECTIONS[@id-1].index(input_setting)][0]
         output_pos = @position.index(output_setting)
         new_char = ALPHA[output_pos]
         return new_char
