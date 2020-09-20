@@ -78,26 +78,48 @@ describe Rotor do
     end
 
     describe "#position" do
-        it "returns an Integer"
+        it "returns an Integer" do
+            expect(rotor.position).to be_an(Integer)
+        end
+
+        it "returns an Integer between 1 and 26 inclusive" do
+            expect((1..26)).to include(rotor.position)
+        end
     end
 
     describe "#rotate_forward" do
         context "when the current position is < 26" do
-            it "increases the position by 1"
+            it "increases the position by 1" do
+                current_pos = rotor.position
+                rotor.rotate_forward
+                expect(rotor.position).to eq(current_pos+1)
+            end
         end
 
         context "when the current position is == 26" do
-            it "changes the position to 1"
+            let (:new_rotor) {Rotor.new(1,26)}
+            it "changes the position to 1" do
+                new_rotor.rotate_forward
+                expect(new_rotor.position).to eq(1)
+            end
         end
     end
 
     describe "#rotate_backward" do
         context "when the current position is > 1" do
-            it "decreases the position by 1"
+            let (:new_rotor) {Rotor.new(1,26)}
+            it "decreases the position by 1" do
+                current_pos = new_rotor.position
+                new_rotor.rotate_backward
+                expect(new_rotor.position).to eq(current_pos-1)
+            end
         end
 
         context "when the current position is == 1" do
-            it "changes the position to 26"
+            it "changes the position to 26" do
+                rotor.rotate_backward
+                expect(rotor.position).to eq(26)
+            end
         end
     end
 
