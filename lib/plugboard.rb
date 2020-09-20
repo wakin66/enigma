@@ -46,7 +46,7 @@ class Plugboard
     def get_value(char)
         raise(ArgumentError,"Argument must be a String") unless char.is_a? String
         raise(ArgumentError,"Argument must be a single letter") unless char.length == 1
-        raise(ArgumentError,"Argument must be a letter") unless ALPHA.include?(char)
+        raise(ArgumentError,"Argument must be a letter") unless ALPHA.include?(char.upcase)
         return plugs[char.upcase]
     end
 
