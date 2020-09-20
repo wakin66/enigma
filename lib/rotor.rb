@@ -64,5 +64,4 @@ class Rotor
             moves_backward.times {rotate_backward}
         end
     end
-
 end
