@@ -1,7 +1,8 @@
 class Plugboard
 
     def initialize(wires = nil)
-        
+        @plugs = Hash.new
+        fill_wires(wires)
     end
 
     def add_wire(pos1,pos2)
