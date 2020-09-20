@@ -26,6 +26,7 @@ class Plugboard
     def remove_wire(wire_num)
         raise(RuntimeError,"There are no wires currently being used") if num_wires_used == 0
         raise(ArgumentError,"That wire number does not exist") unless (1..10).include?(wire_num)
+        raise(RuntimeError,"That wire is not being used") if num_wires_used < wire_num
         get_wires.to_a[wire_num-1].each {|x| plugs[x] = x}
     end
 
