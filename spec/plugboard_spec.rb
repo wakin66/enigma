@@ -100,14 +100,16 @@ describe Plugboard do
             end
 
             it "raises an error if String is not a letter" do
-                expect {plugboard.get_value("1")}.to raise_error(ArgumentError,"Argument must be a single letter")
+                expect {plugboard.get_value("1")}.to raise_error(ArgumentError,"Argument must be a letter")
             end
 
             it "returns 'Y' if given 'A'" do
+                plugboard.add_wire("a","y")
                 expect(plugboard.get_value("A")).to eq("Y")
             end
 
             it "returns 'A' if given 'Y'" do
+                plugboard.add_wire("a","y")
                 expect(plugboard.get_value("Y")).to eq("A")
             end
 
