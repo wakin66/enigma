@@ -3,15 +3,11 @@ require 'plugboard'
 describe Plugboard do
     subject(:plugboard) {Plugboard.new}
 
-    # describe "#initialize" do
-    #     it "creates @plugs as a Hash" do
-    #         expect(plugboard.plugs).to be_a(Hash)
-    #     end
-
-    #     it "fills @plugs with 28 keys"
-
-    #     it "creates @unused_wires as the Integer 10"
-    # end
+    describe "#initialize" do
+        it "raises an error if the argument is not a Hash or nil" do
+            expect {Plugboard.new(5)}.to raise_error(ArgumentError,"Argument must be a hash")
+        end
+    end
 
     describe "#add_wire" do
         context "when there is at least one unused wire" do
@@ -92,8 +88,8 @@ describe Plugboard do
     end
 
     describe "#get_wires" do
-        it "returns an array" do
-            expect(plugboard.get_wires).to be_an(Array)
+        it "returns a Hash" do
+            expect(plugboard.get_wires).to be_a(Hash)
         end
     end
 
