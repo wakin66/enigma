@@ -32,7 +32,7 @@ describe Plugboard do
                 end
 
                 it "raises an error if something other than a String is given" do
-                    expect {plugboard.add_wire("a","y")}.to raise_error(ArgumentError,"Arguments must be Strings")
+                    expect {plugboard.add_wire(1,"y")}.to raise_error(ArgumentError,"Arguments must be Strings")
                 end
 
                 it "raises an error if an Argument length != 1" do
