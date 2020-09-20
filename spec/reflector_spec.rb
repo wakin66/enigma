@@ -5,7 +5,7 @@ describe Reflector do
 
     describe "#initialize" do
         context "takes a string as an argument" do
-            it "doesn't raise an argument when given the string 'B' or 'C'." do
+            it "doesn't raise an error when given the string 'B' or 'C'." do
                 expect {Reflector.new("B")}.to_not raise_error
                 expect {Reflector.new("C")}.to_not raise_error
             end
