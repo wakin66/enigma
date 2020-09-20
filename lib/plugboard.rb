@@ -28,7 +28,7 @@ class Plugboard
     end
 
     def num_wires_used
-        
+        get_wires.length
     end
 
 end
