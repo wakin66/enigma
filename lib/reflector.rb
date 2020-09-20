@@ -9,9 +9,9 @@ class Reflector
     def initialize(id)
         raise(TypeError,"Reflector ID must be a letter.") unless id.is_a? String
         raise(ArgumentError,"Invalid reflector ID.") unless id.length == 1
-        raise(ArgumentError,"Invalid reflector ID.") unless "AB".include?(id.upcase)
+        raise(ArgumentError,"Invalid reflector ID.") unless "BC".include?(id.upcase)
         @id = id
-        @setting = REFLECTOR_CONNECTIONS["AB".index(id.upcase)]
+        @setting = REFLECTOR_CONNECTIONS["BC".index(id.upcase)]
     end
 
     def get_value(char)

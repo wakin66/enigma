@@ -1,21 +1,21 @@
 require 'reflector'
 
 describe Reflector do
-    subject(:reflector) {Reflector.new("a")}
+    subject(:reflector) {Reflector.new("B")}
 
     describe "#initialize" do
         context "takes a string as an argument" do
-            it "doesn't raise an argument when given the string 'a' or 'b'." do
-                expect {Reflector.new("a")}.to_not raise_error
-                expect {Reflector.new("b")}.to_not raise_error
+            it "doesn't raise an argument when given the string 'B' or 'C'." do
+                expect {Reflector.new("B")}.to_not raise_error
+                expect {Reflector.new("C")}.to_not raise_error
             end
 
             it "raises an error when given the wrong arguments" do
-                expect {Reflector.new("c")}.to raise_error(ArgumentError,"Invalid reflector ID.")
+                expect {Reflector.new("D")}.to raise_error(ArgumentError,"Invalid reflector ID.")
             end
 
             it "raises an error when length != 1" do
-                expect {Reflector.new("ab")}.to raise_error(ArgumentError,"Invalid reflector ID.")
+                expect {Reflector.new("BC")}.to raise_error(ArgumentError,"Invalid reflector ID.")
             end
         end
 
