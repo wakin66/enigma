@@ -17,7 +17,7 @@ describe Plugboard do
                 end
 
                 it "returns the new key_value pairs {:x => :y,:y => :x}" do
-                    expect(plugboard.add_wire("a","y")).to eq({"a"=>"y", "y"=>"a"})
+                    expect(plugboard.add_wire("a","y")).to eq({"A"=>"Y"})
                 end
             end
 
@@ -41,7 +41,7 @@ describe Plugboard do
             end
         end
 
-        context "when there are no unused wires" do
+        context "when all wires are being used" do
             it "raises an error" do
                 plugboard.add_wire("a","b")
                 plugboard.add_wire("c","d")
