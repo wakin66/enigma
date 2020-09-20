@@ -35,11 +35,9 @@ class Plugboard
         wires = Hash.new
 
         plugs.each do |k,v|
-            if k!=v
-                if !ignore.include?(k)
-                    ignore << v
-                    wires[k] = v
-                end
+            if k!=v && !ignore.include?(k)
+                ignore << v
+                wires[k] = v
             end
         end
         return wires
