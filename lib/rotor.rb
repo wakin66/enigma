@@ -9,11 +9,16 @@ class Rotor
         "VZBRGITYUPSDNHLXAWMJQOFECK"
     ]
 
+    NOTCH_WINDOWS = "QEVJZ"
+
     ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+    attr_reader :notch
 
     def initialize(id,pos=1,ring_setting=1)
         raise(ArgumentError,"Invalid rotor number.") unless [1,2,3,4,5].include?(id)
         @id = id
+        @notch = ALPHA.index(NOTCH_WINDOWS[id-1])
         @position = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         @setting = Array.new
         (0..25).each {|idx| @setting << [ALPHA[idx], WIRING_CONNECTIONS[@id-1][idx]]}
@@ -59,8 +64,6 @@ class Rotor
         return position
     end
 
-    private
-
     def go_to_pos(new_pos)
         raise(ArgumentError,"Invalid rotor position") unless (1..26).include?(new_pos)
         if position == new_pos
@@ -69,9 +72,10 @@ class Rotor
             moves_forward = new_pos - position
             moves_backward = position + 26 - new_pos
         else
-            moves_forward = position - new_pos
-            moves_backward = new_pos + 26 - position
+            moves_backward = position - new_pos
+            moves_forward = new_pos + 26 - position
         end
+
         if moves_forward < moves_backward
             moves_forward.times {rotate_forward}
         else
