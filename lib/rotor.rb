@@ -11,12 +11,13 @@ class Rotor
 
     ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-    def initialize(id,pos=1)
+    def initialize(id,pos=1,ring_setting=1)
         raise(ArgumentError,"Invalid rotor number.") unless [1,2,3,4,5].include?(id)
         @id = id
         @position = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         @setting = Array.new
         (0..25).each {|idx| @setting << [ALPHA[idx], WIRING_CONNECTIONS[@id-1][idx]]}
+        adjust_ring_setting(ring_setting)
         go_to_pos(pos)
     end
 
@@ -76,5 +77,9 @@ class Rotor
         else
             moves_backward.times {rotate_backward}
         end
+    end
+
+    def adjust_ring_setting(ring_setting)
+        (ring_setting-1).times {@setting.push(@setting.shift)}
     end
 end
