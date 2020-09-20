@@ -10,83 +10,83 @@ describe Plugboard do
 
     #     it "fills @plugs with 28 keys"
 
-    #     it "creates @unused_cables as the Integer 10"
+    #     it "creates @unused_wires as the Integer 10"
     # end
 
-    describe "#add_cable" do
-        context "when there is at least one unused cable" do
+    describe "#add_wire" do
+        context "when there is at least one unused wire" do
             context "and is called correctly" do
                 it "takes two Strings as arguments" do
-                    expect {plugboard.add_cable("a","y")}.to_not raise_error
+                    expect {plugboard.add_wire("a","y")}.to_not raise_error
                 end
 
                 it "returns the new key_value pairs {:x => :y,:y => :x}" do
-                    expect(plugboard.add_cable("a","y")).to eq({"a"=>"y", "y"=>"a"})
+                    expect(plugboard.add_wire("a","y")).to eq({"a"=>"y", "y"=>"a"})
                 end
             end
 
             context "and is not called correctly" do
 
                 it "raises an error if only one String is given" do
-                    expect {plugboard.add_cable("a")}.to raise_error(ArgumentError, "wrong number of arguments (given 1, expected 2)")
+                    expect {plugboard.add_wire("a")}.to raise_error(ArgumentError, "wrong number of arguments (given 1, expected 2)")
                 end
 
                 it "raises an error if more than two Strings are given" do
-                    expect {plugboard.add_cable("a","b","c")}.to raise_error(ArgumentError, "wrong number of arguments (given 3, expected 2)")
+                    expect {plugboard.add_wire("a","b","c")}.to raise_error(ArgumentError, "wrong number of arguments (given 3, expected 2)")
                 end
 
                 it "raises an error if something other than a String is given" do
-                    expect {plugboard.add_cable("a","y")}.to raise_error(ArgumentError,"Arguments must be Strings")
+                    expect {plugboard.add_wire("a","y")}.to raise_error(ArgumentError,"Arguments must be Strings")
                 end
 
                 it "raises an error if an Argument length != 1" do
-                    expect {plugboard.add_cable("ab","y")}.to raise_error(ArgumentError,"Arguments must be a single letter")
+                    expect {plugboard.add_wire("ab","y")}.to raise_error(ArgumentError,"Arguments must be a single letter")
                 end
             end
         end
 
-        context "when there are no unused cables" do
+        context "when there are no unused wires" do
             it "raises an error" do
-                plugboard.add_cable("a","b")
-                plugboard.add_cable("c","d")
-                plugboard.add_cable("e","f")
-                plugboard.add_cable("g","h")
-                plugboard.add_cable("i","j")
-                plugboard.add_cable("k","l")
-                plugboard.add_cable("m","n")
-                plugboard.add_cable("o","p")
-                plugboard.add_cable("q","r")
-                plugboard.add_cable("s","t")
-                expect {plugboard.add_cable("y","z")}.to raise_error(RuntimeError,"All wires are being used")
+                plugboard.add_wire("a","b")
+                plugboard.add_wire("c","d")
+                plugboard.add_wire("e","f")
+                plugboard.add_wire("g","h")
+                plugboard.add_wire("i","j")
+                plugboard.add_wire("k","l")
+                plugboard.add_wire("m","n")
+                plugboard.add_wire("o","p")
+                plugboard.add_wire("q","r")
+                plugboard.add_wire("s","t")
+                expect {plugboard.add_wire("y","z")}.to raise_error(RuntimeError,"All wires are being used")
             end
         end
     end
 
-    describe "#remove_cable" do
-        context "when there is at least one used cable" do
+    describe "#remove_wire" do
+        context "when there is at least one used wire" do
             context "and it is called correctly" do
                 it "takes an Integer as an argument" do
-                    plugboard.add_cable("a","b")
-                    expect {plugboard.remove_cable(1)}.to_not raise_error
+                    plugboard.add_wire("a","b")
+                    expect {plugboard.remove_wire(1)}.to_not raise_error
                 end
             end
 
             context "and it is not called correctly" do
                 it "raises an error if the wire is empty" do
-                    plugboard.add_cable("a","b")
-                    expect {plugboard.remove_cable(5)}.to raise_error(RuntimeError,"That wire is not being used")
+                    plugboard.add_wire("a","b")
+                    expect {plugboard.remove_wire(5)}.to raise_error(RuntimeError,"That wire is not being used")
                 end
 
                 it "raises an error if the Integer is not between 1 and 10 inclusive" do
-                    plugboard.add_cable("a","b")
-                    expect {plugboard.remove_cable(15)}.to raise_error(ArgumentError,"That wire number does not exist")
+                    plugboard.add_wire("a","b")
+                    expect {plugboard.remove_wire(15)}.to raise_error(ArgumentError,"That wire number does not exist")
                 end
             end
         end
 
-        context "when there are no used cables" do
+        context "when there are no used wires" do
             it "raises an error" do
-                expect {plugboard.remove_cable(1)}.to raise_error(RuntimeError,"There are no wires currently being used")
+                expect {plugboard.remove_wire(1)}.to raise_error(RuntimeError,"There are no wires currently being used")
             end
         end
     end
