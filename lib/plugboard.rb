@@ -15,7 +15,12 @@ class Plugboard
     end
 
     def add_wire(pos1,pos2)
-
+        raise(ArgumentError,"Arguments must be Strings") unless (pos1.is_a? String) && (pos2.is_a? String)
+        raise(ArgumentError,"Arguments must be a single letter") unless (pos1.length == 1) && (pos2.length == 1)
+        raise(RuntimeError,"All wires are being used") if num_wires_used == 10
+        plugs[pos1.upcase] = pos2.upcase
+        plugs[pos2.upcase] = pos1.upcase
+        return get_wires
     end
 
     def remove_wire(wire_num)
