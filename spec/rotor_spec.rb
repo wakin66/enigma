@@ -33,46 +33,90 @@ describe Rotor do
         end
     end
 
-    describe "#get_value" do
+    describe "#get_value_from_right" do #Forwards through the rotors
         context "is given a string as an argument" do
             it "doesn't raise an argument when length = 1" do
-                expect {rotor.get_value("a")}.to_not raise_error
+                expect {rotor.get_value_from_right("a")}.to_not raise_error
             end
 
             it "raises an error when length != 1" do
-                expect {rotor.get_value("ab")}.to raise_error(ArgumentError,"Invalid character.")
+                expect {rotor.get_value_from_right("ab")}.to raise_error(ArgumentError,"Invalid character.")
             end
 
             it "raises an error when the string is not a letter" do
-                expect {rotor.get_value("1")}.to raise_error(ArgumentError,"Invalid character.")
+                expect {rotor.get_value_from_right("1")}.to raise_error(ArgumentError,"Invalid character.")
             end
 
             context "when at the starting position" do
                 it "returns 'E' when given the string 'A'" do
-                    expect(rotor.get_value("A")).to eq("E")
+                    expect(rotor.get_value_from_right("A")).to eq("E")
                 end
 
                 it "returns 'C' when given the string 'Y'" do
-                    expect(rotor.get_value("Y")).to eq("C")
+                    expect(rotor.get_value_from_right("Y")).to eq("C")
                 end
             end
 
             context "when rotated once" do
                 it "returns 'J' when given the string 'A'" do
                     rotor.rotate_forward
-                    expect(rotor.get_value("A")).to eq("J")
+                    expect(rotor.get_value_from_right("A")).to eq("J")
                 end
 
                 it "returns 'I' when given the string 'Y'" do
                     rotor.rotate_forward
-                    expect(rotor.get_value("Y")).to eq("I")
+                    expect(rotor.get_value_from_right("Y")).to eq("I")
                 end
             end
         end
 
         context "is given an argument that is NOT a string" do
             it "raises an error" do
-                expect {rotor.get_value(1)}.to raise_error(TypeError,"Character must be a letter.")
+                expect {rotor.get_value_from_right(1)}.to raise_error(TypeError,"Character must be a letter.")
+            end
+        end
+    end
+
+    describe "#get_value_from_left" do #backwards through the rotors
+        context "is given a string as an argument" do
+            it "doesn't raise an argument when length = 1" do
+                expect {rotor.get_value_from_left("a")}.to_not raise_error
+            end
+
+            it "raises an error when length != 1" do
+                expect {rotor.get_value_from_left("ab")}.to raise_error(ArgumentError,"Invalid character.")
+            end
+
+            it "raises an error when the string is not a letter" do
+                expect {rotor.get_value_from_left("1")}.to raise_error(ArgumentError,"Invalid character.")
+            end
+
+            context "when at the starting position" do
+                it "returns 'A' when given the string 'E'" do
+                    expect(rotor.get_value_from_left("E")).to eq("A")
+                end
+
+                it "returns 'Y' when given the string 'C'" do
+                    expect(rotor.get_value_from_left("C")).to eq("Y")
+                end
+            end
+
+            context "when rotated once" do
+                it "returns 'V' when given the string 'A'" do
+                    rotor.rotate_forward
+                    expect(rotor.get_value_from_left("A")).to eq("V")
+                end
+
+                it "returns 'I' when given the string 'Y'" do
+                    rotor.rotate_forward
+                    expect(rotor.get_value_from_left("Y")).to eq("I")
+                end
+            end
+        end
+
+        context "is given an argument that is NOT a string" do
+            it "raises an error" do
+                expect {rotor.get_value_from_left(1)}.to raise_error(TypeError,"Character must be a letter.")
             end
         end
     end
