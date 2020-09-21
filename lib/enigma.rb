@@ -49,6 +49,11 @@ class Enigma
     end
 
     def rotate
-        rotors.each.with_index {|rotor, idx| rotor.rotate_forward if (idx == 2) || (rotors[idx+1].notch == rotors[idx+1].position)}
+        rotors.each.with_index do |rotor, idx|
+            rotor.rotate_forward if
+                (idx == 2) || #Right most rotor
+                (idx == 1 && rotor.notch == rotor.position) || #Center rotor's notch is in position
+                (rotors[idx+1].notch == rotors[idx+1].position) #Rotor to the right's notch is in position
+        end
     end
 end
