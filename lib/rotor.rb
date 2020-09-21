@@ -9,16 +9,16 @@ class Rotor
         "VZBRGITYUPSDNHLXAWMJQOFECK"
     ]
 
-    NOTCH_WINDOWS = "QEVJZ"
+    NOTCH_WINDOWS = "QEVJZ" # 17, 5, 22, 10, 26
 
     ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-    attr_reader :notch
+    attr_reader :notch, :id
 
     def initialize(id,pos=1,ring_setting=1)
         raise(ArgumentError,"Invalid rotor number.") unless [1,2,3,4,5].include?(id)
         @id = id
-        @notch = ALPHA.index(NOTCH_WINDOWS[id-1])
+        @notch = ALPHA.index(NOTCH_WINDOWS[id-1])+1
         @position = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         @setting = Array.new
         (0..25).each {|idx| @setting << [ALPHA[idx], WIRING_CONNECTIONS[@id-1][idx]]}
