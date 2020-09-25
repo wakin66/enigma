@@ -10,6 +10,7 @@ class Enigma
     ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
     def initialize
+        system('clear')
         @rotors = Array.new
         choose_rotors
         @plugboard = Plugboard.new
@@ -21,6 +22,7 @@ class Enigma
     end
 
     def use_machine
+        update_rotor_positions
         display.render
         while true
             key = keyboard.get_input
@@ -85,4 +87,9 @@ class Enigma
                 (rotors[idx+1].notch == rotors[idx+1].position) #Rotor to the right's notch is in position
         end
     end
+end
+
+if __FILE__ == $PROGRAM_NAME
+    enigma = Enigma.new
+    enigma.use_machine
 end
