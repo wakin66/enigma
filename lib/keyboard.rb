@@ -28,20 +28,18 @@ KEYMAP = {
   "X" => :X,
   "Y" => :Y,
   "Z" => :Z,
-  "\t" => :tab,
-  "\r" => :return,
-  "\n" => :newline,
-  "\e" => :escape,
-  "\e[A" => :up,
-  "\e[B" => :down,
-  "\e[C" => :right,
-  "\e[D" => :left,
-  "\177" => :backspace,
-  "\004" => :delete,
+#   "\t" => :tab,
+#   "\r" => :return,
+#   "\n" => :newline,
+#   "\e" => :escape,
+#   "\e[A" => :up,
+#   "\e[B" => :down,
+#   "\e[C" => :right,
+#   "\e[D" => :left,
+#   "\177" => :backspace,
+#   "\004" => :delete,
   "\u0003" => :ctrl_c,
 }
-
-ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 class Keyboard
 
@@ -90,10 +88,8 @@ class Keyboard
         case key
         when :ctrl_c
             exit 0
-        when ALPHA.include?(key.to_s.upcase)
-            return key
         else
-            return nil
+            return key
         end
     end
 end
