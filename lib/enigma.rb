@@ -1,18 +1,53 @@
 require_relative 'plugboard'
 require_relative 'reflector'
 require_relative 'rotor'
+require_relative 'board'
+require_relative 'display'
+require_relative 'keyboard'
 
 class Enigma
+
+    ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
     def initialize
         @rotors = Array.new
         choose_rotors
         @plugboard = Plugboard.new
         @reflector = choose_reflector
+        @board = Board.new
+        @keyboard = Keyboard.new
+        @display = Display.new(board)
+        use_machine
+    end
+
+    def use_machine
+        display.render
+        while true
+            key = keyboard.get_input
+            ALPHA.include?(key.to_s) ? key = key.to_s : (return key)
+            display.render(get_value(key))
+        end
+    end
+
+    def reset_rotors
+        rotors.each {|rotor| rotor.go_to_pos(1)}
+        update_rotor_positions
+        return true
+    end
+
+    private
+
+    attr_reader :board, :keyboard, :display
+
+    def update_rotor_positions
+        rotor_pos = Array.new
+        rotors.each{|rotor| rotor_pos << rotor.position}
+        board.update_values(rotor_pos)
     end
 
     def get_value(char)
         rotate
+        update_rotor_positions
         temp_value = plugboard.get_value(char)
         temp_value = rotors[2].get_value_from_right(temp_value)
         temp_value = rotors[1].get_value_from_right(temp_value)
@@ -24,12 +59,6 @@ class Enigma
         new_value = plugboard.get_value(temp_value)
         return new_value
     end
-
-    def reset_rotors
-        rotors.each {|rotor| rotor.go_to_pos(1)}
-    end
-
-    #private
 
     attr_reader :rotors, :plugboard, :reflector
 
