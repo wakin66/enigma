@@ -16,7 +16,7 @@ class Display
         char_background = :yellow
         board.values.each.with_index do |row,idx_x|
             row.each.with_index do |sqr,idx_y|
-                if sqr == char
+                if sqr == char && idx_x != 6
                     print " #{sqr} ".black.colorize(:background => char_background)
                 else
                     print " #{sqr} ".black.colorize(:background => @background_color[idx_x][idx_y])
