@@ -67,7 +67,7 @@ class Enigma
     def choose_rotors
         puts "Please choose three rotors to use: (1,2,3,4,5)"
         print ">"
-        input = gets.chomp.split(",").map {|x| x.to_i}
+        input = gets.chomp.to_i.digits.reverse
         input.each {|x| @rotors << Rotor.new(x)}
         return rotors
     end
