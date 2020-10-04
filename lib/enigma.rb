@@ -63,10 +63,19 @@ class Enigma
     end
 
     def choose_rotors
-        puts "Please choose three rotors to use: (1,2,3,4,5)"
+        puts "Please choose three rotors to use: (Default = 123)"
         print ">"
-        input = gets.chomp.to_i.digits.reverse
-        input.each {|x| @rotors << Rotor.new(x)}
+        input_rotors = gets.chomp.chars.reverse
+        input_rotors.length == 3 ? input_rotors.map! {|x| x.to_i} : input_rotors = [1,2,3]
+        puts "Please set the starting key settings: (Default = AAA)"
+        print ">"
+        input_pos = gets.chomp.chars.reverse
+        input_rotors.length == 3 ? input_rotors.map! {|x| ALPHA.index(x.upcase)} : input_rotors = [1,1,1]
+        puts "Please set the ring settings: (Default = AAA)"
+        print ">"
+        input_ring_settings = gets.chomp.chars.reverse
+        input_rotors.length == 3 ? input_rotors.map! {|x| ALPHA.index(x.upcase)} : input_rotors = [1,1,1]
+        input_rotors.each {|rotor| @rotors << Rotor.new(rotor)}
         return rotors
     end
 
