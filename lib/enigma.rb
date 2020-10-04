@@ -39,7 +39,7 @@ class Enigma
 
     private
 
-    attr_reader :board, :keyboard, :display
+    attr_reader :board, :keyboard, :display, :rotors, :plugboard, :reflector
 
     def update_rotor_positions
         rotor_pos = Array.new
@@ -61,8 +61,6 @@ class Enigma
         new_value = plugboard.get_value(temp_value)
         return new_value
     end
-
-    attr_reader :rotors, :plugboard, :reflector
 
     def choose_rotors
         puts "Please choose three rotors to use: (1,2,3,4,5)"
