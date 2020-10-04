@@ -18,7 +18,6 @@ class Enigma
         @board = Board.new
         @keyboard = Keyboard.new
         @display = Display.new(board)
-        use_machine
     end
 
     def use_machine
@@ -29,6 +28,14 @@ class Enigma
             ALPHA.include?(key.to_s) ? key = key.to_s : (return key)
             display.render(get_value(key))
         end
+    end
+
+    def get_input
+        input = gets.chomp.delete " "
+        output = ""
+        input.each_char {|char| output += get_value(char)}
+        puts output
+        return output
     end
 
     def reset_rotors
@@ -70,19 +77,20 @@ class Enigma
         puts "Please set the starting key settings: (Default = AAA)"
         print ">"
         input_pos = gets.chomp.chars
-        input_pos.length == 3 ? input_pos.map! {|x| ALPHA.index(x.upcase)} : input_pos = [1,1,1]
+        input_pos.length == 3 ? input_pos.map! {|x| ALPHA.index(x.upcase)+1} : input_pos = [1,1,1]
         puts "Please set the ring settings: (Default = AAA)"
         print ">"
         input_ring_settings = gets.chomp.chars
-        input_ring_settings.length == 3 ? input_ring_settings.map! {|x| ALPHA.index(x.upcase)} : input_ring_settingss = [1,1,1]
-        input_rotors.each {|rotor| @rotors << Rotor.new(rotor)}
+        input_ring_settings.length == 3 ? input_ring_settings.map! {|x| ALPHA.index(x.upcase)+1} : input_ring_settings = [1,1,1]
+        input_rotors.each.with_index {|rotor,idx| @rotors << Rotor.new(rotor,input_pos[idx],input_ring_settings[idx])}
         return rotors
     end
 
     def choose_reflector
-        puts "Please choose which reflector to use: (B or C)"
+        puts "Please choose which reflector to use: (B or C) (Default = B)"
         print ">"
         choice = gets.chomp
+        choice = "B" if choice = ""
         return Reflector.new(choice)
     end
 
@@ -98,5 +106,6 @@ end
 
 if __FILE__ == $PROGRAM_NAME
     enigma = Enigma.new
-    enigma.use_machine
+    #enigma.use_machine
+    enigma.get_input
 end
