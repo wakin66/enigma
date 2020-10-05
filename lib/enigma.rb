@@ -14,6 +14,7 @@ class Enigma
         @rotors = Array.new
         choose_rotors
         @plugboard = Plugboard.new
+        set_wires
         @reflector = choose_reflector
         @board = Board.new
         @keyboard = Keyboard.new
@@ -31,6 +32,8 @@ class Enigma
     end
 
     def get_input
+        puts "Input the message you want encrypted:"
+        print ">"
         input = gets.chomp.delete " "
         output = ""
         input.each_char {|char| output += get_value(char)}
@@ -102,6 +105,18 @@ class Enigma
                 (idx == 1 && rotor.notch == rotor.position) || #Center rotor's notch is in position
                 (rotors[idx+1].notch == rotors[idx+1].position) #Rotor to the right's notch is in position
         end
+    end
+
+    def set_wires
+        input = nil
+        until input
+            puts "Plugboard connections: (Default = none & max = 10)"
+            puts "Example: AB CD EF GH IJ KL MN OP QR ST"
+            print ">"
+            input = gets.chomp.split
+            input = nil if input.length > 10
+        end
+        input.each {|pair| plugboard.add_wire(pair)}
     end
 end
 
