@@ -88,9 +88,5 @@ class Rotor
         second = ALPHA[0..-1-first.length]
         @ring_alpha = first+second
         (0..25).each {|idx| @setting << [@ring_alpha[idx], WIRING_CONNECTIONS[@id-1][idx]]}
-        puts
-        print @setting
-        puts
-        puts
     end
 end
