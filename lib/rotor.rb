@@ -30,11 +30,11 @@ class Rotor
         raise(TypeError,"Character must be a letter.") unless char.is_a? String
         raise(ArgumentError,"Invalid character.") unless char.length == 1
         raise(ArgumentError,"Invalid character.") unless ALPHA.include?(char.upcase)
-        input_pos = ALPHA.index(char.upcase)
-        input_setting = @position[input_pos]
-        output_setting = @setting[@ring_alpha.index(input_setting)][-1]
-        output_pos = @position.index(output_setting)
-        new_char = ALPHA[output_pos]
+        input_pos = ALPHA.index(char.upcase) #returns int
+        input_setting = @position[input_pos] #returns char
+        output_setting = @setting[ALPHA.index(input_setting)][-1] #returns char
+        output_pos = @position.index(output_setting) #returns int
+        new_char = ALPHA[output_pos] #returns char
         return new_char
     end
 
@@ -56,11 +56,13 @@ class Rotor
 
     def rotate_forward
         @position = @position[1..-1]+@position[0]
+        #@ring_alpha = @ring_alpha[1..-1]+@ring_alpha[0]
         return position
     end
 
     def rotate_backward
         @position = @position[-1]+@position[0...-1]
+        #@ring_alpha = @ring_alpha[-1]+@ring_alpha[0...-1]
         return position
     end
 
