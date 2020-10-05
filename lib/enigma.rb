@@ -78,9 +78,10 @@ class Enigma
         print ">"
         input_pos = gets.chomp.chars
         input_pos.length == 3 ? input_pos.map! {|x| ALPHA.index(x.upcase)+1} : input_pos = [1,1,1]
-        puts "Please set the ring settings: (Default = AAA)"
-        print ">"
-        input_ring_settings = gets.chomp.chars
+        # puts "Please set the ring settings: (Default = AAA)"
+        # print ">"
+        # input_ring_settings = gets.chomp.chars
+        input_ring_settings = []
         input_ring_settings.length == 3 ? input_ring_settings.map! {|x| ALPHA.index(x.upcase)+1} : input_ring_settings = [1,1,1]
         input_rotors.each.with_index {|rotor,idx| @rotors << Rotor.new(rotor,input_pos[idx],input_ring_settings[idx])}
         return rotors
@@ -90,7 +91,7 @@ class Enigma
         puts "Please choose which reflector to use: (B or C) (Default = B)"
         print ">"
         choice = gets.chomp
-        choice = "B" if choice = ""
+        choice = "B" if choice == ""
         return Reflector.new(choice)
     end
 
