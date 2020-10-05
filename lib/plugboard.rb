@@ -14,12 +14,13 @@ class Plugboard
         fill_plugs
     end
 
-    def add_wire(pos1,pos2)
-        raise(ArgumentError,"Arguments must be Strings") unless (pos1.is_a? String) && (pos2.is_a? String)
-        raise(ArgumentError,"Arguments must be a single letter") unless (pos1.length == 1) && (pos2.length == 1)
+    def add_wire(pair)
+        raise(ArgumentError,"Arguments must be Strings") unless pair.is_a? String
+        raise(ArgumentError,"Arguments must be a two letters") unless pair.length == 2
         raise(RuntimeError,"All wires are being used") if num_wires_used == 10
-        plugs[pos1.upcase] = pos2.upcase
-        plugs[pos2.upcase] = pos1.upcase
+        pair = pair.chars
+        plugs[pair.first.upcase] = pair.last.upcase
+        plugs[pair.last.upcase] = pair.first.upcase
         return get_wires
     end
 
