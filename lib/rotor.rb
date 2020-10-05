@@ -20,8 +20,8 @@ class Rotor
         @id = id
         @notch = ALPHA.index(NOTCH_WINDOWS[id-1])+1
         @position = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        @ring_alpha = String.new
         @setting = Array.new
-        (0..25).each {|idx| @setting << [ALPHA[idx], WIRING_CONNECTIONS[@id-1][idx]]}
         adjust_ring_setting(ring_setting)
         go_to_pos(pos)
     end
@@ -32,7 +32,7 @@ class Rotor
         raise(ArgumentError,"Invalid character.") unless ALPHA.include?(char.upcase)
         input_pos = ALPHA.index(char.upcase)
         input_setting = @position[input_pos]
-        output_setting = @setting[ALPHA.index(input_setting)][-1]
+        output_setting = @setting[@ring_alpha.index(input_setting)][-1]
         output_pos = @position.index(output_setting)
         new_char = ALPHA[output_pos]
         return new_char
@@ -84,6 +84,13 @@ class Rotor
     end
 
     def adjust_ring_setting(ring_setting)
-        (ring_setting-1).times {@setting.push(@setting.shift)}
+        first = ALPHA[27-ring_setting..-1]
+        second = ALPHA[0..-1-first.length]
+        @ring_alpha = first+second
+        (0..25).each {|idx| @setting << [@ring_alpha[idx], WIRING_CONNECTIONS[@id-1][idx]]}
+        puts
+        print @setting
+        puts
+        puts
     end
 end
