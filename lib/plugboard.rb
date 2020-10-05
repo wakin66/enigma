@@ -3,14 +3,9 @@ class Plugboard
     ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
     def initialize(wires = nil)
-        raise(ArgumentError,"Argument must be a hash") unless ((wires.is_a? Hash) || !wires)
+        raise(ArgumentError,"Argument must be a string") unless ((wires.is_a? String) || !wires)
         @plugs = Hash.new
-        if wires
-            wires.each do |pos1,pos2|
-                @plugs[pos1] = pos2
-                @plugs[pos2] = pos1
-            end
-        end
+        initialize_plugs(wires) if wires
         fill_plugs
     end
 
@@ -61,6 +56,11 @@ class Plugboard
 
     def num_wires_used
         get_wires.length
+    end
+
+    def initialize_plugs(wires)
+        wires = wires.split
+        wires.each {|pair| add_wire(pair)}
     end
 
 end
