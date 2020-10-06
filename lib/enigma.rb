@@ -4,6 +4,7 @@ require_relative 'rotor'
 require_relative 'board'
 require_relative 'display'
 require_relative 'keyboard'
+require_relative 'string_alpha'
 
 class Enigma
 
@@ -12,13 +13,18 @@ class Enigma
     def initialize
         system('clear')
         @rotors = Array.new
-        choose_rotors
         @plugboard = Plugboard.new
-        set_wires
-        @reflector = choose_reflector
         @board = Board.new
         @keyboard = Keyboard.new
         @display = Display.new(board)
+        if testing
+            (1..3).each {|num| @rotors << Rotor.new(num)}
+            @reflector = Reflector.new("B")
+        else
+            choose_rotors
+            set_wires
+            @reflector = choose_reflector
+        end
     end
 
     def use_machine
@@ -34,7 +40,7 @@ class Enigma
     def get_input
         puts "Input the message you want encrypted:"
         print ">"
-        input = gets.chomp.delete " "
+        input = gets.chomp.alpha
         output = ""
         input.each_char {|char| output += get_value(char)}
         puts output
@@ -53,7 +59,7 @@ class Enigma
 
     def update_rotor_positions
         rotor_pos = Array.new
-        rotors.each{|rotor| rotor_pos << rotor.position}
+        rotors.each{|rotor| rotor_pos << rotor.window}
         board.update_values(rotor_pos)
     end
 
@@ -80,11 +86,10 @@ class Enigma
         puts "Please set the starting key settings: (Default = AAA)"
         print ">"
         input_pos = gets.chomp.chars
-        input_pos.length == 3 ? input_pos.map! {|x| ALPHA.index(x.upcase)+1} : input_pos = [1,1,1]
-        # puts "Please set the ring settings: (Default = AAA)"
-        # print ">"
-        # input_ring_settings = gets.chomp.chars
-        input_ring_settings = []
+        input_pos.length == 3 ? input_pos.map! {|x| ALPHA.index(x.upcase)+1} : input_pos = [0,0,0]
+        puts "Please set the ring settings: (Default = AAA)"
+        print ">"
+        input_ring_settings = gets.chomp.chars
         input_ring_settings.length == 3 ? input_ring_settings.map! {|x| ALPHA.index(x.upcase)+1} : input_ring_settings = [1,1,1]
         input_rotors.each.with_index {|rotor,idx| @rotors << Rotor.new(rotor,input_pos[idx],input_ring_settings[idx])}
         return rotors
@@ -102,8 +107,8 @@ class Enigma
         rotors.each.with_index do |rotor, idx|
             rotor.rotate_forward if
                 (idx == 2) || #Right most rotor
-                (idx == 1 && rotor.notch == rotor.position) || #Center rotor's notch is in position
-                (rotors[idx+1].notch == rotors[idx+1].position) #Rotor to the right's notch is in position
+                (idx == 1 && rotor.notch == rotor.offset) || #Center rotor's notch is in position
+                (rotors[idx+1].notch == rotors[idx+1].offset) #Rotor to the right's notch is in position
         end
     end
 
@@ -122,6 +127,6 @@ end
 
 if __FILE__ == $PROGRAM_NAME
     enigma = Enigma.new
-    #enigma.use_machine
-    enigma.get_input
+    enigma.use_machine
+    #enigma.get_input
 end
