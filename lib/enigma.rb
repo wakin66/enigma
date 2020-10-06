@@ -33,6 +33,7 @@ class Enigma
     end
 
     def get_input
+        system('clear')
         puts "Input the message you want encrypted:"
         print ">"
         input = gets.chomp.alpha
