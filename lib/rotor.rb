@@ -13,7 +13,7 @@ class Rotor
 
     ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-    attr_reader :notch, :id, :offset
+    attr_reader :notch, :id
 
     def initialize(id,pos=0,ring_setting=1)
         raise(ArgumentError,"Invalid rotor.") unless (1..5).include?(id)
@@ -30,7 +30,7 @@ class Rotor
     end
 
     def get_value(char,direction)
-        input_pos = ALPHA.index(char)+offset
+        input_pos = ALPHA.index(char.upcase)+offset
         input_pos -= 26 if input_pos > 25
         input_char = ring_alpha[input_pos]
         connection_char = connections[direction][input_char]
@@ -64,7 +64,7 @@ class Rotor
 
     private
 
-    attr_reader :connections, :ring_alpha
+    attr_reader :connections, :ring_alpha, :offset
 
     def generate_forwards_connections
         connections[:forward] = Hash.new
