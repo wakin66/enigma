@@ -17,14 +17,9 @@ class Enigma
         @board = Board.new
         @keyboard = Keyboard.new
         @display = Display.new(board)
-        if testing
-            (1..3).each {|num| @rotors << Rotor.new(num)}
-            @reflector = Reflector.new("B")
-        else
-            choose_rotors
-            set_wires
-            @reflector = choose_reflector
-        end
+        choose_rotors
+        set_wires
+        @reflector = choose_reflector
     end
 
     def use_machine
