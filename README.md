@@ -1,7 +1,7 @@
 # enigma
 My version of a WWII enigma machine.
 
-[![Run on Repl.it](https://repl.it/badge/github/wakin66/enigma)](https://repl.it/github/wakin66/enigma)
+[![Run on Repl.it](https://repl.it/badge/github/wakin66/enigma)](https://repl.it/github/wakin66/enigma)[![Maintainability](https://api.codeclimate.com/v1/badges/0a9130e9d3d524d2b4c3/maintainability)](https://codeclimate.com/github/wakin66/enigma/maintainability)[![Test Coverage](https://api.codeclimate.com/v1/badges/0a9130e9d3d524d2b4c3/test_coverage)](https://codeclimate.com/github/wakin66/enigma/test_coverage)
 
 GEMFILE:
 Make sure you have colorize installed.
