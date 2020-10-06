@@ -29,22 +29,11 @@ class Rotor
         adjust_ring_setting(ring_setting) #adjusts the ring setting and sets the connections
     end
 
-    def get_value_from_right(char) #forward
+    def get_value(char,direction)
         input_pos = ALPHA.index(char)+offset
         input_pos -= 26 if input_pos > 25
         input_char = ring_alpha[input_pos]
-        connection_char = connections[:forward][input_char]
-        output_pos = ring_alpha.index(connection_char)-offset
-        output_pos += 26 if output_pos < 0
-        output_char = ALPHA[output_pos]
-        return output_char
-    end
-
-    def get_value_from_left(char) #backwards
-        input_pos = ALPHA.index(char)+offset
-        input_pos -= 26 if input_pos > 25
-        input_char = ring_alpha[input_pos]
-        connection_char = connections[:backward][input_char]
+        connection_char = connections[direction][input_char]
         output_pos = ring_alpha.index(connection_char)-offset
         output_pos += 26 if output_pos < 0
         output_char = ALPHA[output_pos]
