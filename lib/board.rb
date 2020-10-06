@@ -1,7 +1,5 @@
 class Board
 
-    ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-
     attr_reader :values
 
     def initialize
@@ -13,7 +11,7 @@ class Board
         row_idx = 6
         col_idx = [3,8,13]
 
-        rotor_positions.each.with_index {|pos,idx| values[row_idx][col_idx[idx]] = ALPHA[pos-1]}
+        rotor_positions.each.with_index {|pos,idx| values[row_idx][col_idx[idx]] = pos}
     end
 
     private
