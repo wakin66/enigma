@@ -1,3 +1,5 @@
+require_relative 'string_alpha'
+
 class Rotor
 
     #These connections were gathered from https://bit.ly/33EWSk6
@@ -30,6 +32,8 @@ class Rotor
     end
 
     def get_value(char,direction)
+        raise(TypeError,"Character must be a String.") unless char.is_a?(String)
+        raise(ArgumentError,"Invalid character.") unless char.alpha.length == 1
         input_pos = ALPHA.index(char.upcase)+offset
         input_pos -= 26 if input_pos > 25
         input_char = ring_alpha[input_pos]
