@@ -3,7 +3,7 @@ class Plugboard
     ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
     def initialize(wires = nil)
-        raise(ArgumentError,"Argument must be a string") unless ((wires.is_a? String) || !wires)
+        raise(ArgumentError,"Argument must be a String") unless ((wires.is_a? String) || !wires)
         @plugs = Hash.new
         initialize_plugs(wires) if wires
         fill_plugs
@@ -11,7 +11,7 @@ class Plugboard
 
     def add_wire(pair)
         raise(ArgumentError,"Arguments must be Strings") unless pair.is_a? String
-        raise(ArgumentError,"Arguments must be a two letters") unless pair.length == 2
+        raise(ArgumentError,"Arguments must be a pair of letters") unless pair.length == 2
         raise(RuntimeError,"All wires are being used") if num_wires_used == 10
         pair = pair.chars
         plugs[pair.first.upcase] = pair.last.upcase
