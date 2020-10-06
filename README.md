@@ -1,6 +1,8 @@
 # enigma
 My version of a WWII enigma machine.
 
+[![Run on Repl.it](https://repl.it/badge/github/wakin66/enigma)](https://repl.it/github/wakin66/enigma)
+
 GEMFILE:
 Make sure you have colorize installed.
 
