@@ -62,13 +62,13 @@ class Enigma
         rotate
         update_rotor_positions
         temp_value = plugboard.get_value(char)
-        temp_value = rotors[2].get_value_from_right(temp_value)
-        temp_value = rotors[1].get_value_from_right(temp_value)
-        temp_value = rotors[0].get_value_from_right(temp_value)
+        temp_value = rotors[2].get_value(temp_value,:forward)
+        temp_value = rotors[1].get_value(temp_value,:forward)
+        temp_value = rotors[0].get_value(temp_value,:forward)
         temp_value = reflector.get_value(temp_value)
-        temp_value = rotors[0].get_value_from_left(temp_value)
-        temp_value = rotors[1].get_value_from_left(temp_value)
-        temp_value = rotors[2].get_value_from_left(temp_value)
+        temp_value = rotors[0].get_value(temp_value,:backward)
+        temp_value = rotors[1].get_value(temp_value,:backward)
+        temp_value = rotors[2].get_value(temp_value,:backward)
         new_value = plugboard.get_value(temp_value)
         return new_value
     end
@@ -81,7 +81,7 @@ class Enigma
         puts "Please set the starting key settings: (Default = AAA)"
         print ">"
         input_pos = gets.chomp.chars
-        input_pos.length == 3 ? input_pos.map! {|x| ALPHA.index(x.upcase)+1} : input_pos = [0,0,0]
+        input_pos.length == 3 ? input_pos.map! {|x| ALPHA.index(x.upcase)} : input_pos = [0,0,0]
         puts "Please set the ring settings: (Default = AAA)"
         print ">"
         input_ring_settings = gets.chomp.chars
