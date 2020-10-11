@@ -15,7 +15,7 @@ class Rotor
 
     ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-    attr_reader :notch, :id
+    attr_reader :notch, :id, :offset
 
     def initialize(id,pos=0,ring_setting=1)
         raise(ArgumentError,"Invalid rotor.") unless (1..5).include?(id)
@@ -68,7 +68,7 @@ class Rotor
 
     private
 
-    attr_reader :connections, :ring_alpha, :offset
+    attr_reader :connections, :ring_alpha
 
     def generate_forwards_connections
         connections[:forward] = Hash.new
